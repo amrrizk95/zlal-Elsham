@@ -1,0 +1,24 @@
+﻿@model ElectronicShopBL.ViewModels.CategoryVM
+@{
+    ViewData["Title"] = "Create";
+}
+<style>
+    #categoryForm {
+        margin-top: 50px;
+    }
+</style>
+<div id="categoryForm">
+    <form  method="post">
+  
+        <div class="form-group">
+            <label >Name Ar</label>
+            <input type="text" asp-for="nameAr" class="form-control" placeholder="Name Ar" required>
+        </div>
+        <div class="form-group">
+            <label  >Name En</label>
+            <input type="text" asp-for="nameEn" class="form-control" placeholder="Name En" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>
+
