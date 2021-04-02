@@ -42,6 +42,27 @@ namespace ElectronicShop.Controllers
                 HttpContext.Session.SetInt32("UserRole", user.role.Value);
             }
             return RedirectToAction("Index","Home");
+        } 
+
+        public IActionResult Register(UserVM user)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = UserVM.RegisterUser(bussinseContext, user);
+                if (result!=null)
+                {
+                    HttpContext.Session.SetInt32("CurrentUserId", user.id);
+                    HttpContext.Session.SetString("UserName", user.userName);
+                    HttpContext.Session.SetInt32("UserRole", user.role.Value);
+                }
+                else
+                {
+                    ViewBag.RegisterError = true;
+                    ViewBag.Message = "المستخدم موجود بالفعل";
+                    return View(user);
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
         public IActionResult LogOut()
         {

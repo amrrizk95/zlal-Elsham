@@ -40,29 +40,29 @@ namespace ElectronicShopBL.ViewModels
 
             return modelVM;
         }
-        public static bool RegisterUser(IBussinseContext bussinseContext, UserVM userVM)
+        public static User  RegisterUser(IBussinseContext bussinseContext, UserVM userVM)
         {
             var checkExistUser = bussinseContext.UserBL.Check(u => u.userName == userVM.userName);
+            User user = userVM;
             if (checkExistUser.Count==0)
             {
                 try
                 {
-                    User user = userVM;
                     user.password = helper.GetMD5(user.password);
                     bussinseContext.UserBL.AddNew(user);
                 }
                 catch (Exception)
                 {
 
-                    return false;
+                    return null;
                 }
             
             }
             else
             {
-                return false;
+                return null;
             }
-            return true;
+            return user;
         }
         public static User LoginUser(IBussinseContext bussinseContext, UserVM userVM)
         {

@@ -26,7 +26,6 @@ namespace ElectronicShopBL.ViewModels
 
             var model = new Order();
             model.id = productVM.id;
-            model.productId = productVM.productId;
             model.customerId = productVM.customerId;
             model.createdDate = productVM.createdDate;
             model.totalCost = productVM.totalCost;
@@ -45,11 +44,9 @@ namespace ElectronicShopBL.ViewModels
                 foreach (var item in orders)
                 {
                     OrderVM vm = item;
-                    vm.productName = item.product.nameAr;
-                    vm.categoryName = item.product.category.nameAr;
+                 
 
                     vm.customerName = item.customer.name;
-                    vm.productPrice = item.product.price;
                     ordersVM.Add(vm);
                 }
                
@@ -60,10 +57,7 @@ namespace ElectronicShopBL.ViewModels
                 foreach (var item in orders)
                 {
                     OrderVM vm = item;
-                    vm.productName = item.product.nameAr;
-                    vm.categoryName = item.product.category.nameAr;
                     vm.customerName = item.customer.name;
-                    vm.productPrice = item.product.price;
                     ordersVM.Add(vm);
                 }
             }
@@ -74,7 +68,6 @@ namespace ElectronicShopBL.ViewModels
         {
             var modelVM = new OrderVM();
             modelVM.id = order.id;
-            modelVM.productId = order.productId;
             modelVM.customerId = order.customerId;
             modelVM.createdDate = order.createdDate;
             modelVM.totalCost = order.totalCost;

@@ -19,27 +19,6 @@ namespace ElectronicShopRepository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.2");
 
-            modelBuilder.Entity("ElectronicShopModel.Category", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<DateTime>("createdDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("nameAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nameEn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Categories");
-                });
-
             modelBuilder.Entity("ElectronicShopModel.Customer", b =>
                 {
                     b.Property<int>("id")
@@ -49,9 +28,6 @@ namespace ElectronicShopRepository.Migrations
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("birthdate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
@@ -67,6 +43,32 @@ namespace ElectronicShopRepository.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("ElectronicShopModel.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Orderid")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Orderid");
+
+                    b.ToTable("Items");
+                });
+
             modelBuilder.Entity("ElectronicShopModel.Order", b =>
                 {
                     b.Property<int>("id")
@@ -74,13 +76,13 @@ namespace ElectronicShopRepository.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("customerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productId")
                         .HasColumnType("int");
 
                     b.Property<int>("qty")
@@ -93,41 +95,7 @@ namespace ElectronicShopRepository.Migrations
 
                     b.HasIndex("customerId");
 
-                    b.HasIndex("productId");
-
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("ElectronicShopModel.Product", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("categoryId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("createdDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nameAr")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nameEn")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("price")
-                        .HasColumnType("float");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("categoryId");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ElectronicShopModel.User", b =>
@@ -151,6 +119,13 @@ namespace ElectronicShopRepository.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("ElectronicShopModel.Item", b =>
+                {
+                    b.HasOne("ElectronicShopModel.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("Orderid");
+                });
+
             modelBuilder.Entity("ElectronicShopModel.Order", b =>
                 {
                     b.HasOne("ElectronicShopModel.Customer", "customer")
@@ -159,26 +134,12 @@ namespace ElectronicShopRepository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ElectronicShopModel.Product", "product")
-                        .WithMany()
-                        .HasForeignKey("productId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("customer");
-
-                    b.Navigation("product");
                 });
 
-            modelBuilder.Entity("ElectronicShopModel.Product", b =>
+            modelBuilder.Entity("ElectronicShopModel.Order", b =>
                 {
-                    b.HasOne("ElectronicShopModel.Category", "category")
-                        .WithMany()
-                        .HasForeignKey("categoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("category");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

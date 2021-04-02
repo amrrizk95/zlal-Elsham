@@ -27,7 +27,7 @@ namespace ElectronicShop.Repository.Contexts
             if (!optionsBuilder.IsConfigured)
             {
 
-                optionsBuilder.UseSqlServer(@"Server=.;Database=ElectronicShop;Trusted_Connection=True; MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer(@"Server=.;Database=Zelal-elSham;Trusted_Connection=True; MultipleActiveResultSets=true");
             }
         }
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -41,9 +41,8 @@ namespace ElectronicShop.Repository.Contexts
             base.OnModelCreating(modelBuilder);
         }
         public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Category> Categories { get; set; } 
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
 

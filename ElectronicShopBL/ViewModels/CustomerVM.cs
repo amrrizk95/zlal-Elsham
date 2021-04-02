@@ -33,7 +33,6 @@ namespace ElectronicShopBL.ViewModels
             model.name = customerVM.name;
             model.email = customerVM.email;
             model.address = customerVM.address;
-            model.birthdate = customerVM.birthdate;
             model.phone = customerVM.phone;
 
             return model;
@@ -47,7 +46,6 @@ namespace ElectronicShopBL.ViewModels
             modelVM.name = customer.name;
             modelVM.email = customer.email;
             modelVM.address = customer.address;
-            modelVM.birthdate = customer.birthdate;
             modelVM.phone = customer.phone;
             return modelVM;
         } 
@@ -62,13 +60,13 @@ namespace ElectronicShopBL.ViewModels
             Customer customer = customerVM;
             bussinseContext.CustomerBL.AddNew(customer);
             // add user
-            UserVM user = new UserVM();
+            UserVM user = new UserVM();  
             user.userName = customerVM.email;
             user.password = customerVM.password;
             user.role = (int)Roles.Customer;
                 // register user
             var  isRegister=UserVM.RegisterUser(bussinseContext, user);
-                if (isRegister==true)
+                if (isRegister!=null)
                 {
                     // login user
                     var result = UserVM.LoginUser(bussinseContext, user);

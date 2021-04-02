@@ -11,13 +11,14 @@ namespace ElectronicShopModel
         public int id { get; set; }
         [ForeignKey("customer")]
         public int customerId { get; set; }
-        [ForeignKey("product")]
-        public int productId { get; set; }
+
         public DateTime createdDate { get; set; }
         public double totalCost { get; set; }
         public int qty { get; set; }
         public virtual Customer customer { get; set; }
-        public virtual Product product { get; set; }
+        public string Details { get; set; } 
+        public ICollection<Item> Items { get; set; }
+
 
 
     }
